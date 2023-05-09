@@ -1,0 +1,72 @@
+<div class="mt-4">
+    <h3>My clips</h3>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Major</th>
+                <th scope="col" colspan="2">Created time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each clips}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.major}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <a href="\clips/{{this._id}}/edit" class="btn btn-link">Edit</a>
+                    <a class="btn btn-danger" data-toggle="modal" data-id="{{this._id}}"
+                        data-target="#delete-clip-modal">Delete</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{!-- Confirm delete clips--}}
+<div id="delete-clip-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <div class="modal-body">
+                <p>Delete the clip?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abort</button>
+                <button id="btn-delete-clip" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Delete hidden form --}}
+<form method="POST" name="delete-clip-form"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var clipId;
+        var deleteForm = document.forms['delete-clip-form'];
+        var btnDeleteClip = document.getElementById('btn-delete-clip');
+
+        //When dialog confirm clicked
+        $('#delete-clip-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            clipId = button.data('id');
+            console.log(clipId);
+        });
+
+        //When click delete
+        btnDeleteClip.onclick = function () {
+            deleteForm.action = '/clips/' + clipId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    });
+
+</script>

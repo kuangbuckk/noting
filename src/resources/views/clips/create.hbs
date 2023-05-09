@@ -1,0 +1,25 @@
+<div class="mt-4">
+    <h3>Insert new clip</h3>
+    
+    <form method="POST" action="/clips/store">
+        <div class="form-group mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="">
+        </div>
+        <div class="form-group mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" name="description" class="form-control" id="description" placeholder="">
+        </div>
+        <div class="form-group mb-3">
+            <label for="videoId" class="form-label">videoId</label>
+            <input type="text" name="videoId" class="form-control" id="videoId" placeholder="">
+        </div>
+        <div class="form-group mb-3">
+            <label for="major" class="form-label">Major</label>
+            <input type="text" name="major" class="form-control" id="major" placeholder="">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Confirm</button>
+        </div>
+    </form>
+</div>
