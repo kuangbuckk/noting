@@ -1,22 +1,43 @@
- <div class="mt-4">
+<div class="mt-4">
     <div class="row">
-
-        {{#each clips}}
         <div class="col-sm-6 col-lg-4 d-flex align-items-stretch">
             <div class="card card-course-item">
-                <a href="/clips/{{this.slug}}">
-                    <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}">
+                <a href="/clips/myClips">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWE341brvRXDwU1nekRwVr1JAg-7piZ9HMkF_FAce_beiShuzzKm2V4s8WWGKu0M7_cUE&usqp=CAU"
+                        class="card-img-top" alt="video">
                 </a>
                 <div class="card-body">
-                    <a href="/clips/{{this.slug}}">
-                        <h5 class="card-title">{{this.name}}</h5>
-                    </a>
-                    <p class="card-text">{{this.description}}</p>
-                    <a href="#" class="btn btn-primary">Watch</a>
+                    <h3 class="card-text">Your saved videos will be stored here</h3>
+                    <a href="/clips/myClips" class="btn btn-primary">Go</a>
                 </div>
             </div>
         </div>
-        {{/each}}
+
+        <div class="col-sm-6 col-lg-4 d-flex align-items-stretch">
+            <div class="card card-course-item">
+                <a href="/clips/myClips">
+                    <img src="https://thumbs.dreamstime.com/b/news-woodn-dice-depicting-letters-bundle-small-newspapers-leaning-left-dice-34802664.jpg"
+                        class="card-img-top" alt="video">
+                </a>
+                <div class="card-body">
+                    <h3 class="card-text">Your saved news link will be stored here</h3>
+                    <a href="/clips/myClips" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 d-flex align-items-stretch">
+            <div class="card card-course-item">
+                <a href="/clips/myClips">
+                    <img src="https://unitama.ac.id/wp-content/uploads/2018/06/5_0016_apple-brainstorming-business-908288.jpg"
+                        class="card-img-top" alt="video">
+                </a>
+                <div class="card-body">
+                    <h3 class="card-text">Melta's finance tool</h3>
+                    <a href="/clips/myClips" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>

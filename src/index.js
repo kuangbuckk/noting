@@ -31,9 +31,6 @@ app.engine(
     'hbs',
     handlebars.engine({
         extname: '.hbs',
-        helper: {
-            sum: (a, b) =>  a + b,
-        }
     }),
 );
 app.set(
@@ -53,7 +50,7 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 //console.log(app.get('view'));
 console.log('PATH: ', path.join(__dirname, 'resources/views'));
 
-//route init
+//route init and begin the methods
 route(app);
 
 app.listen(port, () => console.log(`App listening on port ${port}`));

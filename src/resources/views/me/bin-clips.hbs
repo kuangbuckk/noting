@@ -1,7 +1,7 @@
 <div class="mt-4">
     <div>
-        <h3>My clips</h3>
-        <a href="/me/bin/clips"><i class="fa-solid fa-trash"></i> Bin ({{deletedCount}})</a>
+        <a href="\me/stored/clips"><i class="fa-solid fa-arrow-left"></i> Back</a>
+        <h3>Deleted clips</h3>
     </div>
     
     <table class="table mt-4">
@@ -10,7 +10,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Major</th>
-                <th scope="col" colspan="2">Created time</th>
+                <th scope="col" colspan="2">Deleted time</th>
             </tr>
         </thead>
         <tbody>
@@ -19,17 +19,17 @@
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.major}}</td>
-                <td>{{this.createdAt}}</td>
+                <td>{{this.deletedAt}}</td>
                 <td>
-                    <a href="\clips/{{this._id}}/edit" class="btn btn-link">Edit</a>
+                    <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Restore</a>
                     <a class="btn btn-danger" data-toggle="modal" data-id="{{this._id}}"
-                        data-target="#delete-clip-modal">Delete</a>
+                        data-target="#delete-clip-modal">Delete permantly</a>
                 </td>
             </tr>
 
             {{else}}
                 <tr>
-                    <td colspan="5" class="text-center">No clips added yet. <a href="/clips/create">Add clips</a></td>
+                    <td colspan="5" class="text-center">No clips deleted. <a href="\me/stored/clips">Back</a></td>
                 </tr>
             {{/each}}
         </tbody>
@@ -45,11 +45,11 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>
             </div>
             <div class="modal-body">
-                <p>Delete the clip?</p>
+                <p>Delete the clip permantly? This can't be undone.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abort</button>
-                <button id="btn-delete-clip" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button id="btn-delete-clip" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
             </div>
         </div>
     </div>
@@ -57,12 +57,17 @@
 
 {{!-- Delete hidden form --}}
 <form method="POST" name="delete-clip-form"></form>
+<form method="POST" name="restore-clip-form"></form>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var clipId;
         var deleteForm = document.forms['delete-clip-form'];
+        var restoreForm = document.forms['restore-clip-form'];
         var btnDeleteClip = document.getElementById('btn-delete-clip');
+
+        //loop through every btns without for loop
+        var btnRestore = $('.btn-restore');
 
         //When dialog confirm clicked
         $('#delete-clip-modal').on('show.bs.modal', function (event) {
@@ -73,9 +78,17 @@
 
         //When click delete
         btnDeleteClip.onclick = function () {
-            deleteForm.action = '/clips/' + clipId + '?_method=DELETE';
+            deleteForm.action = '/clips/' + clipId + '/force?_method=DELETE';
             deleteForm.submit();
         }
+
+        btnRestore.click(function (e) {
+            e.preventDefault(); //bỏ hành vi mặc định của html của thẻ a
+
+            var clipId = $(this).data('id');
+            restoreForm.action = '/clips/' + clipId + '/restore?_method=PATCH';
+            restoreForm.submit();
+        })
     });
 
 </script>

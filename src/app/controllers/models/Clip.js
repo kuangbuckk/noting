@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
-
 const slug = require('mongoose-slug-generator');
-mongoose.plugin(slug);
+
+
 
 const Clip = new Schema({
     name: {type: String, maxLength: 255, required: true},
@@ -14,5 +15,12 @@ const Clip = new Schema({
 }, {
     timestamps: true,
 });
+
+//Add plugin
+Clip.plugin(mongooseDelete, {
+    deletedAt: true,
+    overrideMethods: 'all',
+});
+mongoose.plugin(slug);
 
 module.exports = mongoose.model('Clip', Clip);
